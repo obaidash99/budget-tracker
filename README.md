@@ -9,9 +9,9 @@
    The latest version of the Budget Tracker includes the ability to perform CRUD operations on both income resources and expenses, allowing users to manage their finances more effectively. Additionally, the dynamic clock provides a convenient way to stay up-to-date with the current time.
 
 ## Prerequisites
-
+<!-- 
 Did you add any additional modules that someone needs to install (for instance anything in Python that you `pip install-ed`)?
-List those here (if any).
+List those here (if any). -->
 
 - I used json-server to run the database for this app so you need to install json-server and run it.
 - Follow those commands:
