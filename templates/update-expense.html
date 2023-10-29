@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Expense Info{% endblock %}
+
+{% block content %}
+
+<div class="content">
+   <h1 class="text-center main-text">Edit Expense</h1>
+   <hr>
+
+   <div class="container-fluid">
+      <div class="row">
+         <div class="mx-auto col-10 col-md-8 col-lg-6">
+            {% if errors %}
+            <div id="error-container">
+               {% for error in errors %}
+               <p class="alert alert-danger">
+                  {{ error }}
+               </p>
+               {% endfor %}
+            </div>
+            {% endif %}
+            <form method="POST" action="{{ url_for('update_expense', id=expense['id']) }}">
+               <div class="mb-3">
+                  <input type="hidden" class="form-control" name="id" value="{{ expense['id'] }}">
+               </div>
+               <div class="mb-3">
+                  <label for="name" class="form-label">Expense Name</label>
+                  <input type="text" class="form-control" name="name" value="{{ expense['name'] }}">
+               </div>
+               <div class="mb-3">
+                  <label for="description">Description</label>
+                  <textarea class="form-control" placeholder="Expense Description"
+                     name="description">{{ expense['description'] }}</textarea>
+               </div>
+               <div class="mb-3">
+                  <label for="amount" class="form-label">Amount</label>
+                  <input type="number" class="form-control" name="amount" value="{{ expense['amount'] }}">
+               </div>
+               <div class="mb-3">
+                  <label for="date" class="form-label">Date</label>
+                  <input type="date" class="form-control" name="date" value="{{ expense['date'] }}">
+               </div>
+               <div class="d-grid gap-2">
+                  <button class="btn btn-primary" type="submit">Edit</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock %}

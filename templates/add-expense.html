@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Income{% endblock %}
+
+{% block content %}
+
+
+<div class="content">
+   <h1 class="text-center main-text">Add An Expense</h1>
+   <hr>
+   <div class="container-fluid">
+      <div class="row">
+         <div class="mx-auto col-10 col-md-8 col-lg-6">
+            {% if errors %}
+            <div id="error-container">
+               {% for error in errors %}
+               <p class="alert alert-danger">
+                  {{ error }}
+               </p>
+               {% endfor %}
+            </div>
+            {% endif %}
+            <form method="POST" action="{{ url_for('add_expense') }}" id="expense-form">
+               <div class="mb-3">
+                  <label for="name" class="form-label">Expense Title</label>
+                  <input type="text" class="form-control" id="name" name="name">
+               </div>
+               <div class="mb-3">
+                  <textarea class="form-control" placeholder="Expense Description" id="description"
+                     name="description"></textarea>
+                  <label for="description">Description</label>
+               </div>
+               <div class="mb-3">
+                  <label for="expense-amount" class="form-label">Amount</label>
+                  <input type="number" class="form-control" id="expense-amount" name="amount">
+               </div>
+               <div class="mb-3">
+                  <label for="date" class="form-label">Date</label>
+                  <input type="date" class="form-control" id="date" name="date">
+               </div>
+               <div class="d-grid gap-2">
+                  <button class="btn btn-primary" type="submit">Add</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock %}

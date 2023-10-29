@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Budget Tracker{% endblock %}
+
+{% block content %}
+
+<div class="content">
+   <!-- Header and Welcome Message -->
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="content">
+               <h1 id="welcome-message" class="text-center"></h1>
+               <h2 class="text-center main-text">This is Your Budget Tracker</h2>
+               <p class="text-center sub-text">Track your income and expenses to take control of your finances, budget
+                  wisely,
+                  and
+                  achieve your
+                  financial goals.</p>
+            </div>
+         </div>
+         <hr>
+      </div>
+   </div>
+
+   <div class="container-fluid">
+      <div class="row">
+         <!-- Result -->
+         <div class="col-md-12">
+            {% if expenses_total_amount == income_total_amount %}
+            <h3 class="result bg-success text-white text-center p-2">
+               It's All balanced, Try to keep your Income ahead of your Expenses!
+            </h3>
+            {% elif expenses_total_amount > income_total_amount %}
+            <h3 class="result bg-danger text-white text-center p-2">
+               You are Behind by:
+               {{ expenses_total_amount - income_total_amount }}$
+            </h3>
+            {% else %}
+            <h3 class="result bg-primary text-white text-center p-2">You have
+               Extra: {{ income_total_amount - expenses_total_amount }}$
+            </h3>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+
+   <div class="container-fluid">
+      <div class="row">
+         <!-- Income resources table -->
+         <div class="col-md-6">
+            <h2 class="text-center table-head">Income Resources</h2>
+            <div class="d-grid gap-2 mb-1">
+               <a class="btn btn-warning" href="{{ url_for('add_income_page') }}">Add Income Resource</a>
+            </div>
+            <div class="table-responsive">
+               <table class="table table-striped">
+                  <thead>
+                     <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Source</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Action</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% if income == "No Data Found!" %}
+                     <tr>
+                        <th scope="row" colspan="6" class="text-center">{{ income }}</th>
+                     </tr>
+                     {% else %}
+                     {% for item in income %}
+                     <tr>
+                        <td scope="row">{{ item['id'] }}</td>
+                        <td scope="row">{{ item['name'] }}</td>
+                        <td scope="row">{{ item['description'] }}</td>
+                        <td scope="row">{{ item['amount'] }} $</td>
+                        <td scope="row">{{ item['date'] }}</td>
+                        <th scope="row">
+                           <a class="btn btn-success mb-1" href="{{ url_for('edit_inc', id=item['id']) }}"
+                              role="button">Edit</a>
+                           <a class="btn btn-danger mb-1" href="{{ url_for('del_inc', id=item['id']) }}"
+                              role="button">Delete</a>
+                        </th>
+                     </tr>
+                     {% endfor %}
+                     <tr>
+                        <th scope="row" colspan="6" class="text-center">Total: {{ income_total_amount }} $</th>
+                     </tr>
+                     {% endif %}
+                  </tbody>
+               </table>
+            </div>
+         </div>
+
+         <!-- Expenses table -->
+         <div class="col-md-6">
+            <h2 class="text-center table-head">Expenses</h2>
+            <div class="d-grid gap-2 mb-1">
+               <a class="btn btn-warning" href="{{ url_for('add_expense_page') }}">Add Expense</a>
+            </div>
+            <div class="table-responsive">
+               <table class="table table-striped">
+                  <thead>
+                     <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Action</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% if expenses == "No Data Found!" %}
+                     <tr>
+                        <th scope="row" colspan="6" class="text-center">{{ expenses }}</th>
+                     </tr>
+                     {% else %}
+                     {% for item in expenses %}
+                     <tr>
+                        <td scope="row">{{ item['id'] }}</td>
+                        <td scope="row">{{ item['name'] }}</td>
+                        <td scope="row">{{ item['description'] }}</td>
+                        <td scope="row">{{ item['amount'] }} $</td>
+                        <td scope="row">{{ item['date'] }}</td>
+                        <th scope="row">
+                           <a class="btn btn-success mb-1" href="{{ url_for('edit_exp', id=item['id']) }}"
+                              role="button">Edit</a>
+                           <a class="btn btn-danger mb-1" href="{{ url_for('del_exp', id=item['id']) }}"
+                              role="button">Delete</a>
+                        </th>
+                     </tr>
+                     {% endfor %}
+                     <tr>
+                        <th scope="row" colspan="6" class="text-center">Total: {{ expenses_total_amount }} $</th>
+                     </tr>
+                     {% endif %}
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
+{% endblock %}
